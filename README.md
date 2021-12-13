@@ -1,4 +1,4 @@
-# ** Programas desenvolvidos em linguagem C **
+# **Programas desenvolvidos em linguagem C**
 >Programas desenvolvidos como atividade na disciplina de Algoritimos e Lógica de Programação II do Curso de Engenharia de Software da Unicesumar Módulo 52/21
 
 ## Códigos em C
