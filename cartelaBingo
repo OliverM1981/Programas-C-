@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+#define OK   1
+#define NOK 0
+
+int i, j, k, l, m, menu, cart, qtd, igual, change; 
+int nums[10];
+ 		
+
+
+int main()
+{
+	
+	srand(time(NULL));
+	setlocale(LC_ALL, "Portuguese");
+    printf("\n PROGRAMA DE GERAÇÃO DE CARTELAS COM NUMEROS ALEATÓRIOS DE 0 - 99\n\n");
+    printf("               1 - Gerar Cartelas     2 - Sair");
+	printf("\n\nEscolha o que deseja fazer: ");
+	scanf("%d", & menu);
+	fflush(stdin);
+	system("cls");
+	
+	switch (menu)
+	{
+	
+	
+		case 1:
+			
+		printf("\nInsira a quantidade de cartelas: ");  // Solicita ao usuário a quantas cartelas ele quer gerar
+	    scanf("%d", & qtd);                            
+	    fflush(stdin);
+	    system("cls"); 
+		     
+	    // Inicializa a geração das cartelas    
+	    for (cart = 1; cart <= qtd; cart++)
+		{
+			
+			printf("\n***************************  $$$  Boa Sorte  $$$  ******************************\n"); 
+			printf("Cartela %d\nSeus números são: ", cart);		
+			
+		
+		//Laço para verificação de numeros repetidos	
+		for (i = 0; i < 10; i++) 
+			{
+		       do 
+				{
+					nums[i] = rand() % 99;
+			        igual = OK;
+			        for (j = 0; j < i; ++j)
+			            if (nums[i] == nums[j])
+			            	igual = NOK;
+			            	                
+			    } while (igual == NOK);
+				
+			}
+			
+		//Fim do laço para verificação de numeros repetidos	
+			
+		// Laço para ordenação crescente dos numeros dentro do vetor	
+		for (k=0; k<10; k++)
+			{
+				for(l = k+1; l < 10; l++)
+				{
+					if(nums[k] > nums[l])
+					{
+						change = nums[k];
+						nums[k] = nums[l];
+						nums[l] = change;	
+					}
+				}
+			}
+		// fim do laço de ordenação
+			
+		// Laço para impressão em tela dos 10 numeros da cartela
+		for (m = 0; m < 10; m++)
+		{
+				printf(" [%d] ", nums[m]);
+		}
+		// Fim do laço da impressão dos numeros da cartela
+		
+		// Sequencia de comandos para dar estética ao programa
+		printf("\n¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨\n");	
+		system("pause");		
+		system("cls");
+			
+		}
+		printf("\n\nFim da geração de cartelas\n\n");		
+		//Finaliza geração de cartelas
+		system("pause");		
+		system("cls");
+		main();
+		break;
+		
+		case 2:
+		return(0);	
+		break;
+		
+		default:
+		printf("\n\nOpção Inválida\n\n");
+		system("pause");		
+		system("cls");
+		main();	
+		break;
+	}
+
+
+}

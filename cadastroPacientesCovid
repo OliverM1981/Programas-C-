@@ -1,0 +1,283 @@
+#include <stdlib.h>
+#include <locale.h>
+#include <stdio.h>
+#include <string.h>
+
+
+ 
+int menu;
+char resposta;
+int total = 0;
+
+	
+
+struct dadosPaciente
+{
+     char nome[50], sexo[2], cpf[11], destino [20];
+     int idade, totalPaciente;      
+}paciente;
+
+void cabecalho()
+{
+	printf(" ------------------------\n");
+    printf(" |  TRIAGEM ELETRÔNICA  |\n");
+    printf(" ------------------------\n\n");
+}
+
+void cadastro()
+{
+	
+  FILE *dadosPaciente; // cria variável ponteiro para o arquivo
+    
+  //abrindo o arquivo com tipo de abertura w
+  dadosPaciente = fopen("Dados_Paciente.txt", "a+");
+  
+  //testando se o arquivo foi realmente criado
+  if(dadosPaciente == NULL)
+  {
+  printf("Erro na abertura do arquivo!");
+ 
+  }
+  cabecalho();
+  printf("Informe dos dados a seguir\n\n");
+  
+  printf("CPF---: ");
+  gets (paciente.cpf);
+  fprintf(dadosPaciente,"\n*********************************************************");
+  fprintf(dadosPaciente, "\nCPF----: %s", paciente.cpf);
+  fflush(stdin);
+  
+  printf("\nNome--: ");
+  gets (paciente.nome);
+  fprintf(dadosPaciente, "\nNome---: %s\0", paciente.nome);
+  fflush(stdin);
+  
+  printf("\nSexo [M] / [F]--: ");
+  gets (paciente.sexo);
+  fprintf(dadosPaciente, "\nSexo---: %s", paciente.sexo);
+  fflush(stdin);
+  
+  printf ("\nIdade--: ");
+  scanf ("%d", &paciente.idade);
+  fprintf (dadosPaciente, "\nIdade--: %d\n\n", paciente.idade);
+  fflush (stdin);
+  fclose (dadosPaciente);  
+  
+  printf ("\nDados gravados com sucesso!\n\n");
+  
+  system("pause");
+  system("cls");
+  
+  
+}
+
+void ala() 
+{
+	FILE *dadosPaciente; // cria variável ponteiro para o arquivo
+    
+  //abrindo o arquivo com tipo de abertura a+
+  dadosPaciente = fopen("Dados_Paciente.txt", "a+");
+  
+  //testando se o arquivo foi realmente criado
+  if(dadosPaciente == NULL)
+  {
+  printf("Erro na abertura do arquivo!");
+ 
+  }
+	
+	paciente.totalPaciente = total;
+	cabecalho();
+	if ( paciente.totalPaciente >= 20)
+	{
+	printf(" Sua pontuação foi de %d pontos\n", paciente.totalPaciente);
+	printf(" Dirija-se para a ALA DE RISCO ALTO\n\n");
+	fprintf(dadosPaciente, "Paciente encaminhado para a Ala de Risco Alto com %d pontos.", paciente.totalPaciente);
+	}
+	
+	else if ( paciente.totalPaciente >= 10)
+		{
+	
+		printf(" Sua pontuação foi de %d pontos\n", paciente.totalPaciente);
+		printf(" Dirija-se para a ALA DE RISCO MÉDIO\n\n");
+		fprintf(dadosPaciente, "Paciente encaminhado para a Ala de Risco Médio com %d pontos.", paciente.totalPaciente);
+		}
+			else if (paciente.totalPaciente < 10)
+			{
+			
+				printf(" Sua pontuação foi de %d pontos\n", paciente.totalPaciente);
+				printf(" Dirija-se para a ALA DE RISCO BAIXO\n\n");
+				fprintf(dadosPaciente, "Paciente encaminhado para a Ala de Risco Baixo com %d pontos.", paciente.totalPaciente);	
+			}
+
+fprintf(dadosPaciente,"\n*********************************************************");
+  
+  
+  fclose (dadosPaciente);
+  system ("pause");
+  system("cls");
+  main();	
+
+	
+}
+	
+void perguntas()
+{
+	
+	int p = 0;
+	int valor_resp [9]={5, 1, 1, 3, 10, 1, 1, 10, 3};
+	char opcao;
+	
+	char per [10] [100] = 
+	{	"- Tem Febre?", 
+		"- Tem dor de cabeça?",
+		"- Tem secreção nasal ou espirros?", 
+		"- Tem dor/irritação na garganta?", 
+		"- Tem tosse seca?", 
+		"- Tem dificuldade respiratória?", 
+		"- Tem dores no corpo?", 
+		"- Tem diarréia?",
+		"- Esteve em contato, nos últimos 14 dias, com um caso diagnosticado com COVID-19?",
+		"- Esteve em locais com grande aglomeração?"	
+	};
+	
+
+	
+	do 
+		{
+		cabecalho();
+		printf ("Responda o questionário\n");
+		printf("SIM [S]            NÃO[N]:\n\n");
+		printf ("%s:  ", per[p]);
+		scanf("%c", & opcao);
+		fflush(stdin);
+		
+			switch (opcao){
+				
+				case 's':
+					total = (valor_resp[p] + total);
+					p++;
+					system("cls");
+					break;
+					
+				case 'S':
+					total = (valor_resp[p] + total);
+					p++;
+					system("cls");
+					break;
+				
+				case 'n':
+					p++;
+					system("cls");
+					break;
+				
+				case 'N':
+					p++;
+					system("cls");
+					break;
+				
+				default:
+					printf ("Resposta incorreta\n");
+					system("pause");
+					system("cls");
+					break;
+					
+					
+			};
+		}while (p < 10);
+		
+	cabecalho();
+	system("pause");
+	system("cls");
+	ala();
+
+}
+
+
+
+void encerrar ()
+{
+	cabecalho();
+	printf("Você realmente deseja sair ?\n ");
+	printf("SIM [S]              NÃO[N]:  ");
+	scanf("%c", & resposta);
+	fflush(stdin);
+	system("cls");
+	
+			
+			switch (resposta)
+			{
+				case 's':
+					cabecalho();
+					printf("\n\nPROGRAMA ENCERRADO PELO USUÁRIO\n ");
+					
+					exit (1);
+				break;
+				
+				case 'S':
+					cabecalho();
+					printf("\n\nPROGRAMA ENCERRADO PELO USUÁRIO\n\n\n ");
+					
+					exit (1);
+				break;
+				
+				case 'n':
+					system("cls");
+					main();
+				break;
+				
+				case 'N':
+					system("cls");	
+					main();
+				break;
+				
+				default:
+					system("cls");
+					cabecalho();
+					printf("\n\n             OPÇÃO INVALIDA    \n\n\n ");
+					system("pause");
+					system("cls");
+					encerrar();
+				break; 
+				
+			}
+  }  
+int main() 
+{ 
+	setlocale(LC_ALL, "Portuguese");
+	
+	cabecalho();
+	     
+    printf(" ----------MENU-------------\n");
+    printf("1- Iniciar Triagem\n2- SAIR\n");
+    printf("Digite o número da opção: ");
+    scanf("%d", & menu);
+    fflush(stdin);
+    system("cls");
+    paciente.totalPaciente = 0;
+    
+    switch (menu)
+    {
+    	case 1:
+    		cadastro();
+    		perguntas();
+    		ala();
+    		
+		break;
+		
+		case 2:
+			system("cls");
+			encerrar();			
+		break;
+		
+		default:
+			system("cls");
+			cabecalho();
+			printf("\n\n             OPÇÃO INVALIDA    \n\n\n ");
+			system("pause");
+			fflush(stdin);
+			system("cls");
+			main();
+		break; 
+			
+	}
+}
